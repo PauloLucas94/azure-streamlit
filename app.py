@@ -126,7 +126,7 @@ def app():
                 chat_response = get_chat_response(user_query, context)
                 
                 # Exibir a resposta gerada (apenas a resposta, sem os vetores e documentos)
-                st.subheader("Resposta do GPT:")
+                st.subheader("Resposta do Assistente da Fábrica:")
                 st.write(chat_response)
 
 if __name__ == "__main__":
