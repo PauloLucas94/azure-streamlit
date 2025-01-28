@@ -50,7 +50,7 @@ def search_documents(vectorised_user_query):
         "vectorQueries": [
             {
                 "vector": vectorised_user_query,
-                "k": 3,
+                "k": 5,
                 "fields": "text_vector",
                 "kind": "vector"
             }
@@ -93,7 +93,7 @@ def get_chat_response(user_query, context):
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
         ],
-        temperature=0.7
+        temperature=0.8
     )
     
     # Retornar a resposta gerada
@@ -101,34 +101,33 @@ def get_chat_response(user_query, context):
 
 # Streamlit interface
 def app():
-    st.title('Consultas sobre Estudos de Mercado')
+    st.title('Fábrica de Cursos - Metalmecânica')
     
     # Input do usuário
-    user_query = st.text_input("Digite sua consulta sobre estudos de mercado:", "")
-    
-    if user_query:
-        # Gerar embeddings da consulta do usuário
-        with st.spinner('Gerando resposta...'):
-            vectorised_user_query = generate_embeddings(azure_openai_client, user_query)
-            st.write(f"Query vetorizada: {vectorised_user_query}")
-            
-            # Buscar documentos relacionados
-            documents = search_documents(vectorised_user_query)
-            
-            # Extrair o contexto com base nos documentos encontrados
-            context = []
-            for doc in documents:
-                context.append({
-                    "chunk": doc['chunk'],
-                    "score": doc['@search.score']
-                })
-            
-            # Obter resposta do GPT com base no contexto
-            chat_response = get_chat_response(user_query, context)
-            
-            # Exibir a resposta gerada
-            st.subheader("Resposta do GPT:")
-            st.write(chat_response)
+    user_query = st.text_input("Digite sua pergunta sobre o estudo de mercado:", "")
+    if st.button("Enviar"):
+        if user_query:
+            # Gerar embeddings da consulta do usuário
+            with st.spinner('Gerando resposta...'):
+                vectorised_user_query = generate_embeddings(azure_openai_client, user_query)
+                
+                # Buscar documentos relacionados
+                documents = search_documents(vectorised_user_query)
+                
+                # Extrair o contexto com base nos documentos encontrados
+                context = []
+                for doc in documents:
+                    context.append({
+                        "chunk": doc['chunk'],
+                        "score": doc['@search.score']
+                    })
+                
+                # Obter resposta do GPT com base no contexto
+                chat_response = get_chat_response(user_query, context)
+                
+                # Exibir a resposta gerada (apenas a resposta, sem os vetores e documentos)
+                st.subheader("Resposta do GPT:")
+                st.write(chat_response)
 
 if __name__ == "__main__":
     app()
