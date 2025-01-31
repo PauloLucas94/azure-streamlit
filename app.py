@@ -50,7 +50,7 @@ def search_documents(vectorised_user_query):
         "vectorQueries": [
             {
                 "vector": vectorised_user_query,
-                "k": 3,
+                "k": 5,
                 "fields": "text_vector",
                 "kind": "vector"
             }
