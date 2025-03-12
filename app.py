@@ -71,9 +71,9 @@ def get_chat_response(user_query, context):
     Função para obter uma resposta do modelo GPT usando o contexto da pesquisa.
     """
     system_prompt = f"""
-    Você deve atuar como um chatbot especializado em fornecer respostas baseadas em um banco de dados de avaliações de estudos de mercado, armazenadas na Solução de Pesquisa de IA do Azure. Suas respostas devem ser exclusivamente baseadas no conteúdo do banco de dados fornecido, sem incluir informações adicionais que não estejam no contexto. Caso não haja uma resposta disponível para a consulta, informe educadamente ao usuário.
+    Você deve atuar como um chatbot especializado em fornecer respostas baseadas em serviço do blob storage do azure, armazenadas na Solução de Pesquisa de IA do Azure. Suas respostas devem ser exclusivamente baseadas no conteúdo do banco de dados fornecido, sem incluir informações adicionais que não estejam no contexto. Caso não haja uma resposta disponível para a consulta, informe educadamente ao usuário.
 
-    O contexto será fornecido como uma lista de objetos, cada um representando uma avaliação de estudo de mercado. Cada objeto contém as seguintes informações:
+    O contexto será fornecido como uma lista de objetos, cada um representando uma avaliação do plano de curso do técnologo de eletrônica industrial. Cada objeto contém as seguintes informações:
     "chunk": "Conteúdo da revisão do estudo."
     "score": "Pontuação de relevância da revisão."
     A lista contém as três melhores correspondências com base na similaridade de cosseno entre os embeddings da consulta do usuário e as descrições das avaliações.
@@ -104,7 +104,7 @@ def app():
     st.title('Fábrica de Cursos - Metalmecânica')
     
     # Input do usuário
-    user_query = st.text_input("Digite sua pergunta sobre o estudo de mercado:", "")
+    user_query = st.text_input("Digite sua pergunta:", "")
     if st.button("Enviar"):
         if user_query:
             # Gerar embeddings da consulta do usuário
