@@ -101,7 +101,7 @@ def get_chat_response(user_query, context):
 
 # Streamlit interface
 def app():
-    st.title('Fábrica de Cursos - Metalmecânica')
+    st.title('Fábrica de Cursos - Técnologo em Eletrônica Industrial')
     
     # Input do usuário
     user_query = st.text_input("Digite sua pergunta:", "")
