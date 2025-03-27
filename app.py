@@ -73,7 +73,7 @@ def get_chat_response(user_query, context):
     system_prompt = f"""
     Você deve atuar como um chatbot especializado em fornecer respostas baseadas em serviço do blob storage do azure, armazenadas na Solução de Pesquisa de IA do Azure. Suas respostas devem ser exclusivamente baseadas no conteúdo do banco de dados fornecido, sem incluir informações adicionais que não estejam no contexto. Caso não haja uma resposta disponível para a consulta, informe educadamente ao usuário.
 
-    O contexto será fornecido como uma lista de objetos, cada um representando uma avaliação do plano de curso do técnologo de eletrônica industrial. Cada objeto contém as seguintes informações:
+    O contexto será fornecido como uma lista de objetos, cada um representando uma avaliação de diferentes operações e técnicas de usinagem em máquinas convencionais. Cada objeto contém as seguintes informações:
     "chunk": "Conteúdo da revisão do estudo."
     "score": "Pontuação de relevância da revisão."
     A lista contém as três melhores correspondências com base na similaridade de cosseno entre os embeddings da consulta do usuário e as descrições das avaliações.
@@ -101,7 +101,7 @@ def get_chat_response(user_query, context):
 
 # Streamlit interface
 def app():
-    st.title('Fábrica de Cursos - Tecnólogo em Eletrônica Industrial')
+    st.title('Chatbot - Mecânica de Usinagem')
     
     # Input do usuário
     user_query = st.text_input("Digite sua pergunta:", "")
@@ -126,7 +126,7 @@ def app():
                 chat_response = get_chat_response(user_query, context)
                 
                 # Exibir a resposta gerada (apenas a resposta, sem os vetores e documentos)
-                st.subheader("Resposta do Assistente da Fábrica:")
+                st.subheader("Resposta do Assistente de Oficina:")
                 st.write(chat_response)
 
 if __name__ == "__main__":
